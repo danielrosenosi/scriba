@@ -21,4 +21,6 @@ Route::get('/', function () {
 
 Route::get('/contato', [SiteController::class, 'index'])->name('site.contact');
 
-Route::get('/suportes', [SupportController::class, 'index'])->name('supports.index');
+Route::get('/supports', [SupportController::class, 'index'])->name('supports.index');
+Route::get('/supports/criar', [SupportController::class, 'create'])->name('supports.create');
+
