@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\Admin\SupportController;
+use App\Http\Controllers\Site\SiteController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -16,3 +18,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('/contato', [SiteController::class, 'index'])->name('site.contact');
+
+Route::get('/suportes', [SupportController::class, 'index'])->name('supports.index');
