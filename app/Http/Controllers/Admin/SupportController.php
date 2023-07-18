@@ -2,57 +2,54 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\DTO\StoreSupportDTO;
+use App\DTO\UpdateSupportDTO;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreSupportRequest;
 use App\Http\Requests\UpdateSupportRequest;
 use App\Models\Support;
-use Illuminate\Http\JsonResponse;
+use App\Services\SupportService;
 use Illuminate\Http\Request;
 
 class SupportController extends Controller
 {
-    public function index(Support $support)
+    public function __construct(protected SupportService $service) {}
+
+    public function index(Request $request)
     {
-        $supports = $support->all();
+        $supports = $this->service->getAll($request->filter);
 
         return view('admin.supports.index', compact('supports'));
     }
 
-    public function store(StoreSupportRequest $request, Support $support)
+    public function store(StoreSupportRequest $request)
     {
-        $data = $request->validated();
-        $data['status'] = 'a';
-
-        $support->create($data);
+        $this->service->store(StoreSupportDTO::makeFromRequest($request->validated()));
 
         return redirect()->route('supports.index');
     }
 
     public function update(UpdateSupportRequest $request, Support $support, int $id)
     {
-        if (!$support = $support->find($id)) {
+        $support = $this->service->update(UpdateSupportDTO::makeFromRequest($request->validated(), $id));
+
+        if (!$support) {
             return back();
         }
-
-        $support->update($request->validated());
 
         return redirect()->route('supports.index');
     }
 
-    public function destroy(string|int $id, Support $support)
+    public function destroy(int $id)
     {
-        if (!$support = $support->find($id)) {
-            return back();
-        }
-
-        $support->delete();
+        $this->service->delete($id);
 
         return redirect()->route('supports.index');
     }
 
     public function show(int $id)
     {
-        if (!$support = Support::find($id)) {
+        if (!$support = $this->service->findOne($id)) {
             return back();
         }
 
@@ -61,7 +58,7 @@ class SupportController extends Controller
 
     public function edit(int $id)
     {
-        if (!$support = Support::find($id)) {
+        if (!$support = $this->service->findOne($id)) {
             return back();
         }
 
