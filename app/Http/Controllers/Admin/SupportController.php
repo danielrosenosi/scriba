@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\StoreSupportRequest;
+use App\Http\Requests\UpdateSupportRequest;
 use App\Models\Support;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -16,12 +18,34 @@ class SupportController extends Controller
         return view('admin.supports.index', compact('supports'));
     }
 
-    public function store(Request $request, Support $support)
+    public function store(StoreSupportRequest $request, Support $support)
     {
-        $data = $request->all();
+        $data = $request->validated();
         $data['status'] = 'a';
 
         $support->create($data);
+
+        return redirect()->route('supports.index');
+    }
+
+    public function update(UpdateSupportRequest $request, Support $support, int $id)
+    {
+        if (!$support = $support->find($id)) {
+            return back();
+        }
+
+        $support->update($request->validated());
+
+        return redirect()->route('supports.index');
+    }
+
+    public function destroy(string|int $id, Support $support)
+    {
+        if (!$support = $support->find($id)) {
+            return back();
+        }
+
+        $support->delete();
 
         return redirect()->route('supports.index');
     }
@@ -42,28 +66,6 @@ class SupportController extends Controller
         }
 
         return view('admin.supports.edit', compact('support'));
-    }
-
-    public function update(Request $request, Support $support, int $id)
-    {
-        if (!$support = $support->find($id)) {
-            return back();
-        }
-
-        $support->update($request->only(['subject', 'body']));
-
-        return redirect()->route('supports.index');
-    }
-
-    public function destroy(string|int $id, Support $support)
-    {
-        if (!$support = $support->find($id)) {
-            return back();
-        }
-
-        $support->delete();
-
-        return redirect()->route('supports.index');
     }
 
     public function create()
