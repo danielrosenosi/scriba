@@ -2,8 +2,8 @@
 
 namespace App\Services;
 
-use App\DTO\StoreSupportDTO;
-use App\DTO\UpdateSupportDTO;
+use App\DTO\Supports\StoreSupportDTO;
+use App\DTO\Supports\UpdateSupportDTO;
 use App\Repositories\PaginationInterface;
 use App\Repositories\SupportRepositoryInterface;
 use stdClass;
