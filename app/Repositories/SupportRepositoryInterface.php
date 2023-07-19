@@ -8,6 +8,7 @@ use stdClass;
 
 interface SupportRepositoryInterface
 {
+    public function paginate(int $page = 1, int $totalPerPage = 15, string $filter = null): PaginationInterface;
     public function index(string $filter = null): array;
     public function show(int $id): stdClass|null;
     public function store(StoreSupportDTO $dto): stdClass;
