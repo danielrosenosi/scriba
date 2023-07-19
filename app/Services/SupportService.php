@@ -4,25 +4,21 @@ namespace App\Services;
 
 use App\DTO\StoreSupportDTO;
 use App\DTO\UpdateSupportDTO;
+use App\Repositories\SupportRepositoryInterface;
 use stdClass;
 
 class SupportService
 {
-    protected $repository;
+    public function __construct(protected SupportRepositoryInterface $repository) {}
 
-    public function __construct()
+    public function index(string $filter = null): array
     {
-
+        return $this->repository->index($filter);
     }
 
-    public function getAll(string $filter = null): array
+    public function show(int $id): stdClass|null
     {
-        return $this->repository->getAll($filter);
-    }
-
-    public function findOne(int $id): stdClass|null
-    {
-        return $this->repository->findOne($id);
+        return $this->repository->show($id);
     }
 
     public function store(StoreSupportDTO $dto): stdClass
