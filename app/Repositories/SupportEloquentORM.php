@@ -18,7 +18,7 @@ class SupportEloquentORM implements SupportRepositoryInterface
                 $query->where('subject', $filter);
                 $query->orWhere('body', 'like', "%{$filter}%");
             })
-            ->all()
+            ->get()
             ->toArray();
 
         return $supports;
