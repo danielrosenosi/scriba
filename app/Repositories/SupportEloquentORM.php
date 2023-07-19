@@ -15,13 +15,12 @@ class SupportEloquentORM implements SupportRepositoryInterface
     public function paginate(int $page = 1, int $totalPerPage = 15, string $filter = null): PaginationInterface
     {
         $supports = $this->model->when($filter, function ($query) use ($filter) {
-            $query->where('subject', $filter);
-            $query->orWhere('body', 'like', "%{$filter}%");
-        })
-        ->paginate($totalPerPage, ['*'], 'page', $page)
-        ->toArray();
+                $query->where('subject', $filter);
+                $query->orWhere('body', 'like', "%{$filter}%");
+            })
+            ->paginate($totalPerPage, ['*'], 'page', $page);
 
-        return $supports;
+        return new PaginationPresenter($supports);
     }
 
     public function index(string $filter = null): array
