@@ -17,7 +17,7 @@ class SupportController extends Controller
 
     public function index(Request $request)
     {
-        $supports = $this->service->getAll($request->filter);
+        $supports = $this->service->index($request->filter);
 
         return view('admin.supports.index', compact('supports'));
     }
@@ -49,7 +49,7 @@ class SupportController extends Controller
 
     public function show(int $id)
     {
-        if (!$support = $this->service->findOne($id)) {
+        if (!$support = $this->service->show($id)) {
             return back();
         }
 
@@ -58,7 +58,7 @@ class SupportController extends Controller
 
     public function edit(int $id)
     {
-        if (!$support = $this->service->findOne($id)) {
+        if (!$support = $this->service->show($id)) {
             return back();
         }
 
