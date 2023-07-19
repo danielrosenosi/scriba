@@ -24,14 +24,14 @@ class SupportController extends Controller
 
     public function store(StoreSupportRequest $request)
     {
-        $this->service->store(StoreSupportDTO::makeFromRequest($request->validated()));
+        $this->service->store(StoreSupportDTO::makeFromRequest($request));
 
         return redirect()->route('supports.index');
     }
 
     public function update(UpdateSupportRequest $request, Support $support, int $id)
     {
-        $support = $this->service->update(UpdateSupportDTO::makeFromRequest($request->validated(), $id));
+        $support = $this->service->update(UpdateSupportDTO::makeFromRequest($request, $id));
 
         if (!$support) {
             return back();
