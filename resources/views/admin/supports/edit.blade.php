@@ -1,14 +1,12 @@
 @extends('admin.layouts.app')
 
-@section('title', 'Editar postagem')
+@section('title', 'Editar dúvida')
 
 @section('header')
-    <h1>Dúvida {{ $support->id }}</h1>
+    <h1 class="text-lg mb-4">Dúvida: {{ $support->subject }}</h1>
 @endsection
 
 @section('content')
-    <x-alert />
-
     <form action="{{ route('supports.update', $support->id) }}" method="POST">
         @method('PUT')
         @include('admin.supports.partials.form', ['support' => $support])

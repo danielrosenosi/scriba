@@ -7,20 +7,18 @@
     <title>@yield('title') - {{ config('app.name') }}</title>
 
     <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.2.0/sweetalert2.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.2.0/sweetalert2.all.min.js"></script>
 </head>
-<body>
-    <section class="container px-4 mx-auto">
-        <div class="sm:flex sm:items-center sm:justify-between">
-            @yield('header')
-        </div>
+<body class="bg-gray-50 dark:bg-gray-900 text-white">
+    <section class="container px-4 mx-auto py-4">
+        @yield('header')
 
-        <div class="content">
+        <div>
+            <x-messages />
+
             @yield('content')
         </div>
-
-        <footer>
-            Footer
-        </footer>
     </section>
 </body>
 </html>
