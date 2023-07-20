@@ -23,7 +23,7 @@ class UpdateSupportRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'subject' => ['required', 'min:3', 'max:255', Rule::unique('supports')->ignore($this->id)],
+            'subject' => ['required', 'min:3', 'max:255', Rule::unique('supports')->ignore($this->support ?? $this->id)],
             'body' => ['required', 'min:3', 'max:10000'],
         ];
     }
