@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Adapters\ApiAdapter;
 use App\DTO\Supports\StoreSupportDTO;
 use App\DTO\Supports\UpdateSupportDTO;
 use App\Http\Controllers\Controller;
@@ -22,22 +23,13 @@ class SupportApiController extends Controller
      */
     public function index(Request $request)
     {
-        $support = $this->service->paginate(
+        $supports = $this->service->paginate(
             page: $request->get('page', 1),
             totalPerPage: $request->get('per_page', 10),
             filter: $request->filter
         );
 
-        return SupportResource::collection($support->items())->additional([
-            'meta' => [
-                'total' => $support->total(),
-                'is_first_page' => $support->isFirstPage(),
-                'is_last_page' => $support->isLastPage(),
-                'current_page' => $support->currentPage(),
-                'next_page' => $support->getNumberNextPage(),
-                'previous_page' => $support->getNumberPreviousPage(),
-            ]
-        ]);
+        return ApiAdapter::toJson($supports);
     }
 
     /**
