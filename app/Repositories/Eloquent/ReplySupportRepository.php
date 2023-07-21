@@ -38,7 +38,7 @@ class ReplySupportRepository implements ReplyRepositoryInterface
     {
         $reply = $this->model->find($replyId);
 
-        if ($reply->support_id !== auth()->user()->id) {
+        if ($reply->user_id !== auth()->user()->id) {
             return response()->json(['message' => 'Você não tem permissão para excluir essa resposta!'], 403);
         }
 
