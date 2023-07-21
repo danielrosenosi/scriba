@@ -10,7 +10,9 @@ use stdClass;
 
 class SupportService
 {
-    public function __construct(protected SupportRepositoryInterface $repository) {}
+    public function __construct(protected SupportRepositoryInterface $repository)
+    {
+    }
 
     public function paginate(int $page = 1, int $totalPerPage = 15, string $filter = null): PaginationInterface
     {
@@ -22,7 +24,7 @@ class SupportService
         return $this->repository->index($filter);
     }
 
-    public function show(int $id): stdClass|null
+    public function show(int $id): ?stdClass
     {
         return $this->repository->show($id);
     }
@@ -32,7 +34,7 @@ class SupportService
         return $this->repository->store($dto);
     }
 
-    public function update(UpdateSupportDTO $dto): stdClass|null
+    public function update(UpdateSupportDTO $dto): ?stdClass
     {
         return $this->repository->update($dto);
     }

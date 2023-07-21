@@ -16,7 +16,9 @@ use Illuminate\Http\Response;
 
 class SupportApiController extends Controller
 {
-    public function __construct(protected SupportService $service) {}
+    public function __construct(protected SupportService $service)
+    {
+    }
 
     /**
      * Display a listing of the resource.
@@ -47,7 +49,7 @@ class SupportApiController extends Controller
      */
     public function show(string $id): SupportResource|JsonResponse
     {
-        if (!$support = $this->service->show($id)) {
+        if (! $support = $this->service->show($id)) {
             return response()->json(['error' => 'Suporte não encontrado'], Response::HTTP_NOT_FOUND);
         }
 
@@ -61,7 +63,7 @@ class SupportApiController extends Controller
     {
         $support = $this->service->update(UpdateSupportDTO::makeFromRequest($request, $id));
 
-        if (!$support) {
+        if (! $support) {
             return response()->json(['error' => 'Suporte não encontrado'], Response::HTTP_NOT_FOUND);
         }
 
@@ -73,7 +75,7 @@ class SupportApiController extends Controller
      */
     public function destroy(string $id): JsonResponse
     {
-        if (!$this->service->show($id)) {
+        if (! $this->service->show($id)) {
             return response()->json(['error' => 'Suporte não encontrado'], Response::HTTP_NOT_FOUND);
         }
 

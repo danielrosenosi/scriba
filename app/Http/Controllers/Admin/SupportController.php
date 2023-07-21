@@ -13,7 +13,9 @@ use Illuminate\Http\Request;
 
 class SupportController extends Controller
 {
-    public function __construct(protected SupportService $service) {}
+    public function __construct(protected SupportService $service)
+    {
+    }
 
     public function index(Request $request)
     {
@@ -39,7 +41,7 @@ class SupportController extends Controller
     {
         $support = $this->service->update(UpdateSupportDTO::makeFromRequest($request, $id));
 
-        if (!$support) {
+        if (! $support) {
             return back();
         }
 
@@ -50,12 +52,12 @@ class SupportController extends Controller
     {
         $this->service->delete($id);
 
-        return redirect()->route('supports.index')->with('message', 'Deletado com sucesso!');;
+        return redirect()->route('supports.index')->with('message', 'Deletado com sucesso!');
     }
 
     public function show(int $id)
     {
-        if (!$support = $this->service->show($id)) {
+        if (! $support = $this->service->show($id)) {
             return back();
         }
 
@@ -64,7 +66,7 @@ class SupportController extends Controller
 
     public function edit(int $id)
     {
-        if (!$support = $this->service->show($id)) {
+        if (! $support = $this->service->show($id)) {
             return back();
         }
 

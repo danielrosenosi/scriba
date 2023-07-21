@@ -12,7 +12,8 @@ class UpdateSupportDTO
         public string $subject,
         public SupportStatusEnum $status,
         public string $body,
-    ) {}
+    ) {
+    }
 
     public static function makeFromRequest(UpdateSupportRequest $request, int $id): self
     {

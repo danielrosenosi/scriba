@@ -11,7 +11,8 @@ class StoreSupportDTO
         public string $subject,
         public SupportStatusEnum $status,
         public string $body,
-    ) {}
+    ) {
+    }
 
     public static function makeFromRequest(StoreSupportRequest $request): self
     {
