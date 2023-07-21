@@ -2,7 +2,7 @@
 
 namespace App\Services;
 
-use App\DTO\Replies\CreateReplyDTO;
+use App\DTO\Replies\StoreReplyDTO;
 use App\Repositories\Contracts\ReplyRepositoryInterface;
 use stdClass;
 
@@ -15,7 +15,7 @@ class ReplySupportService
         return $this->repository->getAllBySupport($supportId);
     }
 
-    public function store(CreateReplyDTO $dto): stdClass
+    public function store(StoreReplyDTO $dto): stdClass
     {
         return $this->repository->store($dto);
     }

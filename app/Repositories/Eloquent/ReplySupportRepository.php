@@ -2,7 +2,7 @@
 
 namespace App\Repositories\Eloquent;
 
-use App\DTO\Replies\CreateReplyDTO;
+use App\DTO\Replies\StoreReplyDTO;
 use App\Models\ReplySupport;
 use App\Repositories\Contracts\ReplyRepositoryInterface;
 use stdClass;
@@ -18,10 +18,10 @@ class ReplySupportRepository implements ReplyRepositoryInterface
         return $replies->toArray();
     }
 
-    public function store(CreateReplyDTO $dto): stdClass
+    public function store(StoreReplyDTO $dto): stdClass
     {
         $reply = $this->model->create([
-            'body' => $dto->body,
+            'content' => $dto->content,
             'user_id' => auth()->user()->id,
             'support_id' => $dto->supportId,
         ]);
