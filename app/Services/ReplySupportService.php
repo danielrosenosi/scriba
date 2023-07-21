@@ -10,7 +10,9 @@ use stdClass;
 
 class ReplySupportService
 {
-    public function __construct(protected ReplyRepositoryInterface $repository) {}
+    public function __construct(protected ReplyRepositoryInterface $repository)
+    {
+    }
 
     public function getAllBySupport(string $supportId): array
     {

@@ -7,12 +7,13 @@ use App\Models\ReplySupport;
 use App\Repositories\Contracts\ReplyRepositoryInterface;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Validation\ValidationException;
 use stdClass;
 
 class ReplySupportRepository implements ReplyRepositoryInterface
 {
-    public function __construct(protected ReplySupport $model) {}
+    public function __construct(protected ReplySupport $model)
+    {
+    }
 
     public function getAllBySupport(string $supportId): array
     {
