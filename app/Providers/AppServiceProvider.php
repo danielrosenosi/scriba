@@ -2,7 +2,9 @@
 
 namespace App\Providers;
 
+use App\Models\ReplySupport;
 use App\Models\Support;
+use App\Observers\ReplySupportObserver;
 use App\Observers\SupportObserver;
 use App\Repositories\Contracts\ReplyRepositoryInterface;
 use App\Repositories\Contracts\SupportRepositoryInterface;
@@ -28,5 +30,6 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         Support::observe(SupportObserver::class);
+        ReplySupport::observe(ReplySupportObserver::class);
     }
 }

@@ -7,4 +7,11 @@ if (! function_exists('getStatusSupport')) {
     {
         return SupportStatusEnum::getDescription($status);
     }
+
+    function getTwoInitials(string $name): string
+    {
+        $initials = preg_filter('/[^A-Z]/', '', $name);
+
+        return substr($initials, 0, 2);
+    }
 }

@@ -4,7 +4,7 @@ namespace App\DTO\Replies;
 
 class StoreReplyDTO
 {
-    public function __construct(public string $content, public string $supportId) {}
+    public function __construct(public string $supportId, public string $content) {}
 
     public static function makeFromRequest(object $request): self
     {

@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -18,6 +20,11 @@ class ReplySupport extends Model
     ];
 
     protected $table = 'replies_supports';
+
+    public function createdAt(): Attribute
+    {
+        return Attribute::make(get: fn ($createdAt) => Carbon::parse($createdAt)->format('d/m/Y H:i'));
+    }
 
     public function user(): BelongsTo
     {
