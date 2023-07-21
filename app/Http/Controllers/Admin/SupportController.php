@@ -37,7 +37,7 @@ class SupportController extends Controller
         return redirect()->route('supports.index')->with('message', 'Cadastrado com sucesso!');
     }
 
-    public function update(UpdateSupportRequest $request, Support $support, int $id)
+    public function update(UpdateSupportRequest $request, Support $support, string $id)
     {
         $support = $this->service->update(UpdateSupportDTO::makeFromRequest($request, $id));
 
@@ -48,14 +48,14 @@ class SupportController extends Controller
         return redirect()->route('supports.index')->with('message', 'Atualizado com sucesso!');
     }
 
-    public function destroy(int $id)
+    public function destroy(string $id)
     {
         $this->service->delete($id);
 
         return redirect()->route('supports.index')->with('message', 'Deletado com sucesso!');
     }
 
-    public function show(int $id)
+    public function show(string $id)
     {
         if (! $support = $this->service->show($id)) {
             return back();
@@ -64,7 +64,7 @@ class SupportController extends Controller
         return view('admin.supports.show', compact('support'));
     }
 
-    public function edit(int $id)
+    public function edit(string $id)
     {
         if (! $support = $this->service->show($id)) {
             return back();

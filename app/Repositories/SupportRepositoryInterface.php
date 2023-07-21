@@ -12,11 +12,11 @@ interface SupportRepositoryInterface
 
     public function index(string $filter = null): array;
 
-    public function show(int $id): ?stdClass;
+    public function show(string $id): ?stdClass;
 
     public function store(StoreSupportDTO $dto): stdClass;
 
     public function update(UpdateSupportDTO $dto): ?stdClass;
 
-    public function delete(int $id): void;
+    public function delete(string $id): void;
 }

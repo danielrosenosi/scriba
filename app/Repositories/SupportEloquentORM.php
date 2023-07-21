@@ -36,7 +36,7 @@ class SupportEloquentORM implements SupportRepositoryInterface
         return $supports;
     }
 
-    public function show(int $id): ?stdClass
+    public function show(string $id): ?stdClass
     {
         $support = $this->model->find($id);
 
@@ -65,7 +65,7 @@ class SupportEloquentORM implements SupportRepositoryInterface
         return (object) $support->toArray();
     }
 
-    public function delete(int $id): void
+    public function delete(string $id): void
     {
         $this->model->findOrFail($id)->delete();
     }

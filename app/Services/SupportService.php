@@ -24,7 +24,7 @@ class SupportService
         return $this->repository->index($filter);
     }
 
-    public function show(int $id): ?stdClass
+    public function show(string $id): ?stdClass
     {
         return $this->repository->show($id);
     }
@@ -39,7 +39,7 @@ class SupportService
         return $this->repository->update($dto);
     }
 
-    public function delete(int $id): void
+    public function delete(string $id): void
     {
         $this->repository->delete($id);
     }

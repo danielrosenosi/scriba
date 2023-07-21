@@ -8,14 +8,14 @@ use App\Http\Requests\UpdateSupportRequest;
 class UpdateSupportDTO
 {
     public function __construct(
-        public int $id,
+        public string $id,
         public string $subject,
         public SupportStatusEnum $status,
         public string $body,
     ) {
     }
 
-    public static function makeFromRequest(UpdateSupportRequest $request, int $id): self
+    public static function makeFromRequest(UpdateSupportRequest $request, string $id): self
     {
         return new self($id, $request->subject, SupportStatusEnum::A, $request->body);
     }
