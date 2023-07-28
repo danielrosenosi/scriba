@@ -7,6 +7,7 @@ use App\Models\ReplySupport;
 use App\Repositories\Contracts\ReplyRepositoryInterface;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Gate;
 use stdClass;
 
 class ReplySupportRepository implements ReplyRepositoryInterface
@@ -37,6 +38,10 @@ class ReplySupportRepository implements ReplyRepositoryInterface
     public function delete(string $replyId): RedirectResponse|JsonResponse|bool
     {
         $reply = $this->model->find($replyId);
+
+        if (!Gate::allows('owner', $reply->user_id)) {
+            abort(403, 'Not Authorized');
+        }
 
         if ($reply->user_id !== auth()->user()->id) {
             return response()->json(['message' => 'Você não tem permissão para excluir essa resposta!'], 403);

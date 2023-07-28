@@ -8,13 +8,13 @@
             <div class="flex justify-between">
                 <h1 class="text-lg">Detalhes da Dúvida: <b>{{ $support->subject }}</b></h1>
 
-                {{-- @can('owner', $support->user['id'])
+                @can('owner', $support->user['id'])
                     <form action="{{ route('supports.destroy', $support->id) }}" method="post">
                         @csrf()
                         @method('DELETE')
                         <button type="submit" class="bg-red-500 hover:bg-red-400 text-white font-bold py-2 px-4 border-b-4 border-red-700 hover:border-red-500 rounded">Deletar</button>
                     </form>
-                @endcan --}}
+                @endcan
             </div>
 
             <ul>
@@ -52,15 +52,13 @@
                         <div class="flex justify-between">
                             <span>{{ $reply['created_at'] }}</span>
 
-                            {{-- @can('owner', $reply['user']['id']) --}}
+                            @can('owner', $reply['user']['id'])
                                 <form action="{{ route('replies.destroy', $reply['id']) }}" method="post">
                                     @csrf()
                                     @method('DELETE')
                                     <button type="submit" class="rounded shadow bg-red-500 hover:bg-red-400 focus:shadow-outline focus:outline-none text-white font-bold py-1 px-4">Deletar</button>
                                 </form>
-                            {{-- @else
-                            --
-                            @endcan --}}
+                            @endcan
                         </div>
                     </div>
                 @endforeach

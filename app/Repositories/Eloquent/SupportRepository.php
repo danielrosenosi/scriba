@@ -8,6 +8,7 @@ use App\Models\Support;
 use App\Repositories\Contracts\PaginationInterface;
 use App\Repositories\Contracts\SupportRepositoryInterface;
 use App\Repositories\PaginationPresenter;
+use Illuminate\Support\Facades\Gate;
 use stdClass;
 
 class SupportRepository implements SupportRepositoryInterface
@@ -22,6 +23,7 @@ class SupportRepository implements SupportRepositoryInterface
             $query->where('subject', $filter);
             $query->orWhere('body', 'like', "%{$filter}%");
         })
+            ->with('user')
             ->paginate($totalPerPage, ['*'], 'page', $page);
 
         return new PaginationPresenter($supports);
@@ -33,6 +35,7 @@ class SupportRepository implements SupportRepositoryInterface
             $query->where('subject', $filter);
             $query->orWhere('body', 'like', "%{$filter}%");
         })
+            ->with('user')
             ->get()
             ->toArray();
 
@@ -46,6 +49,8 @@ class SupportRepository implements SupportRepositoryInterface
         if (! $support) {
             return null;
         }
+
+        $support->load('user');
 
         return (object) $support->toArray();
     }
@@ -63,6 +68,10 @@ class SupportRepository implements SupportRepositoryInterface
             return null;
         }
 
+        if (!Gate::allows('owner', $support->user_id)) {
+            abort(403, 'Not Authorized');
+        }
+
         $support->update((array) $dto);
 
         return (object) $support->toArray();
@@ -70,6 +79,12 @@ class SupportRepository implements SupportRepositoryInterface
 
     public function delete(string $id): void
     {
-        $this->model->findOrFail($id)->delete();
+        $support = $this->model->findOrFail($id);
+
+        if (!Gate::allows('owner', $support->user_id)) {
+            abort(403, 'Not Authorized');
+        }
+
+        $support->delete();
     }
 }
