@@ -45,7 +45,7 @@ class ReplySupportRepository implements ReplyRepositoryInterface
     {
         $reply = $this->model->find($replyId);
 
-        if (!Gate::allows('owner', $reply->user_id)) {
+        if (! Gate::allows('owner', $reply->user_id)) {
             abort(403, 'Not Authorized');
         }
 

@@ -15,7 +15,8 @@ class ReplySupportController extends Controller
     public function __construct(
         protected SupportService $supportService,
         protected ReplySupportService $replyService
-    ) {}
+    ) {
+    }
 
     public function index(string $id)
     {

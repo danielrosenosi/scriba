@@ -3,7 +3,6 @@
 namespace App\Mail;
 
 use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
@@ -41,7 +40,7 @@ class SupportRepliedMail extends Mailable
         return new Content(
             markdown: 'emails.supports.replied',
             with: [
-                'reply' => $this->reply
+                'reply' => $this->reply,
             ],
         );
     }

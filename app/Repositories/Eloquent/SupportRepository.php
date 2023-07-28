@@ -68,7 +68,7 @@ class SupportRepository implements SupportRepositoryInterface
             return null;
         }
 
-        if (!Gate::allows('owner', $support->user_id)) {
+        if (! Gate::allows('owner', $support->user_id)) {
             abort(403, 'Not Authorized');
         }
 
@@ -81,7 +81,7 @@ class SupportRepository implements SupportRepositoryInterface
     {
         $support = $this->model->findOrFail($id);
 
-        if (!Gate::allows('owner', $support->user_id)) {
+        if (! Gate::allows('owner', $support->user_id)) {
             abort(403, 'Not Authorized');
         }
 
