@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\DTO\Replies\StoreReplyDTO;
+use App\Events\SupportRepliedEvent;
 use App\Repositories\Contracts\ReplyRepositoryInterface;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
@@ -21,7 +22,11 @@ class ReplySupportService
 
     public function store(StoreReplyDTO $dto): stdClass
     {
-        return $this->repository->store($dto);
+        $reply = $this->repository->store($dto);
+
+        SupportRepliedEvent::dispatch($reply);
+
+        return $reply;
     }
 
     public function delete(string $replyId): RedirectResponse|JsonResponse|bool

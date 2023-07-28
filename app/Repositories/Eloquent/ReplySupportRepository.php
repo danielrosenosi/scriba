@@ -32,6 +32,12 @@ class ReplySupportRepository implements ReplyRepositoryInterface
             'support_id' => $dto->supportId,
         ]);
 
+        $reply->load([
+            'user' => fn ($query) => $query->select('id', 'name', 'email'),
+            'support' => fn ($query) => $query->select('id', 'subject', 'body', 'user_id'),
+            'support.user' => fn ($query) => $query->select('id', 'name', 'email'),
+        ]);
+
         return (object) $reply->toArray();
     }
 
