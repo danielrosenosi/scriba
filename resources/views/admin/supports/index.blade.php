@@ -3,10 +3,11 @@
 @section('title', 'Forúm')
 
 @section('header')
-    @include('admin.supports.partials.header', compact('supports'))
+    Todos os suportes
 @endsection
 
 @section('content')
+@include('admin.supports.partials.header', compact('supports'))
     @include('admin.supports.partials.content', compact('supports'))
 
     <x-pagination :paginator="$supports" :appends="$filters" />
