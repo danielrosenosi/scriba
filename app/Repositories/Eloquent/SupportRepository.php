@@ -23,7 +23,6 @@ class SupportRepository implements SupportRepositoryInterface
             $query->where('subject', $filter);
             $query->orWhere('body', 'like', "%{$filter}%");
         })
-            ->with('user')
             ->paginate($totalPerPage, ['*'], 'page', $page);
 
         return new PaginationPresenter($supports);

@@ -51,7 +51,7 @@
                                         <i class="fas fa-search"></i>
                                     </a>
 
-                                    @can('owner', $support->user['id'])
+                                    @can('owner', $support->user_id)
                                         <a href="{{ route('supports.edit', $support->id) }}" class="py-1 mt-0.5c text-gray-500 transition-colors duration-200 rounded-lg ms-2" title="Editar Suporte">
                                             <i class="fas fa-solid fa-pen"></i>
                                         </a>
