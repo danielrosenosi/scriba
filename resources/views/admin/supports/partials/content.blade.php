@@ -17,7 +17,7 @@
                                 Comentário
                             </th>
 
-                            {{-- <th scope="col" class="px-4 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 dark:text-gray-400">Interações</th> --}}
+                            <th scope="col" class="px-4 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 dark:text-gray-400">Interações</th>
 
                             <th scope="col" class="px-4 py-3 text-sm font-normal text-left rtl:text-right text-gray-500 dark:text-gray-400">
                                 Ações
@@ -37,15 +37,13 @@
                                 <td class="px-4 py-2 text-sm whitespace-nowrap text-gray-500 dark:text-gray-400">
                                     {{ $support->body }}
                                 </td>
-                                {{-- <td class="px-4 py-2 text-sm whitespace-nowrap">
+                                <td class="px-4 py-2 text-sm whitespace-nowrap">
                                     <div class="flex items-center">
                                         @foreach ($support->replies as $reply)
-                                            @if ($loop->index < 4)
-                                                <div class="object-cover w-6 h-6 -mx-1 border-2 border-white rounded-full dark:border-gray-700 shrink-0 bg-green-500">{{ getInitials($reply['user']['name']) }}</div>
-                                            @endif
+                                            <div class="object-cover w-7 h-7 text-center -mx-1 border-2 border-white rounded-full dark:border-gray-700 shrink-0 bg-purple-500" title="{{ $reply['user']['name'] }}">{{ getTwoInitials($reply['user']['name']) }}</div>
                                         @endforeach
                                     </div>
-                                </td> --}}
+                                </td>
                                 <td class="px-4 py-2 text-sm whitespace-nowrap flex">
                                     <a href="{{ route('replies.index', $support->id) }}" class="py-1 mt-0.5c text-gray-500 transition-colors duration-200 rounded-lg" title="Ver detalhes">
                                         <i class="fas fa-search"></i>
