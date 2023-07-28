@@ -35,9 +35,9 @@ class ReplySupportController extends Controller
         return redirect()->route('replies.index', $request->support_id)->with('message', 'Resposta cadastrada com sucesso!');
     }
 
-    public function destroy(string $id, string $replyId): RedirectResponse|JsonResponse|bool
+    public function destroy(string $replyId): RedirectResponse|JsonResponse|bool
     {
-        $this->replyService->destroy($id, $replyId);
+        $this->replyService->delete($replyId);
 
         return back()->with('message', 'Resposta excluída com sucesso!');
     }

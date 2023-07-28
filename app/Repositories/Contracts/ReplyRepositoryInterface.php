@@ -13,5 +13,5 @@ interface ReplyRepositoryInterface
 
     public function store(StoreReplyDTO $dto): stdClass;
 
-    public function destroy(string $id, string $replyId): RedirectResponse|JsonResponse|bool;
+    public function delete(string $replyId): RedirectResponse|JsonResponse|bool;
 }

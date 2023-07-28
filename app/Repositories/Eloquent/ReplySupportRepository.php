@@ -34,7 +34,7 @@ class ReplySupportRepository implements ReplyRepositoryInterface
         return (object) $reply->toArray();
     }
 
-    public function destroy(string $id, string $replyId): RedirectResponse|JsonResponse|bool
+    public function delete(string $replyId): RedirectResponse|JsonResponse|bool
     {
         $reply = $this->model->find($replyId);
 

@@ -53,7 +53,7 @@
                             <span>{{ $reply['created_at'] }}</span>
 
                             {{-- @can('owner', $reply['user']['id']) --}}
-                                <form action="{{ route('replies.destroy', [$support->id, $reply['id']]) }}" method="post">
+                                <form action="{{ route('replies.destroy', $reply['id']) }}" method="post">
                                     @csrf()
                                     @method('DELETE')
                                     <button type="submit" class="rounded shadow bg-red-500 hover:bg-red-400 focus:shadow-outline focus:outline-none text-white font-bold py-1 px-4">Deletar</button>

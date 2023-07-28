@@ -24,8 +24,8 @@ class ReplySupportService
         return $this->repository->store($dto);
     }
 
-    public function destroy(string $id, string $replyId): RedirectResponse|JsonResponse|bool
+    public function delete(string $replyId): RedirectResponse|JsonResponse|bool
     {
-        return $this->repository->destroy($id, $replyId);
+        return $this->repository->delete($replyId);
     }
 }
