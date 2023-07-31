@@ -22,15 +22,20 @@ class SupportRepository implements SupportRepositoryInterface
         $supports = $this->model->when($filter, function ($query) use ($filter) {
             $query->where('subject', $filter);
             $query->orWhere('body', 'like', "%{$filter}%");
-        })
-            ->with([
+        })->paginate($totalPerPage, ['*'], 'page', $page);
+
+        $supports->getCollection()->transform(function ($support) {
+            $support->load([
                 'replies' => function ($query) {
                     $query->select('id', 'support_id', 'user_id',)
-                        ->with(['user' => fn ($query) => $query->select('id', 'name', 'email')])
+                        ->with(['user' => fn ($query) => $query->select('id', 'name')])
+                        ->orderBy('created_at', 'desc')
                         ->limit(4);
                 },
-            ])
-            ->paginate($totalPerPage, ['*'], 'page', $page);
+            ]);
+
+            return $support;
+        });
 
         return new PaginationPresenter($supports);
     }
