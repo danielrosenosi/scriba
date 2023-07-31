@@ -21,22 +21,16 @@ class SupportRepository implements SupportRepositoryInterface
     public function paginate(int $page = 1, int $totalPerPage = 15, string $filter = null): PaginationInterface
     {
         $supports = $this->model->when($filter, function ($query) use ($filter) {
-            $query->where('subject', $filter);
-            $query->orWhere('body', 'like', "%{$filter}%");
-        })->paginate($totalPerPage, ['*'], 'page', $page);
-
-        $supports->getCollection()->transform(function ($support) {
-            $support->load([
+                $query->where('subject', $filter);
+                $query->orWhere('body', 'like', "%{$filter}%");
+            })
+            ->with([
                 'replies' => function ($query) {
                     $query->select('id', 'support_id', 'user_id',)
-                        ->with(['user' => fn ($query) => $query->select('id', 'name')])
-                        ->orderBy('created_at', 'desc')
-                        ->limit(4);
+                        ->with(['user' => fn ($query) => $query->select('id', 'name')]);
                 },
-            ]);
-
-            return $support;
-        });
+            ])
+            ->paginate($totalPerPage, ['*'], 'page', $page);
 
         return new PaginationPresenter($supports);
     }
