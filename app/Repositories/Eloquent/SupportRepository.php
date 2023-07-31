@@ -4,6 +4,7 @@ namespace App\Repositories\Eloquent;
 
 use App\DTO\Supports\StoreSupportDTO;
 use App\DTO\Supports\UpdateSupportDTO;
+use App\Enums\SupportStatusEnum;
 use App\Models\Support;
 use App\Repositories\Contracts\PaginationInterface;
 use App\Repositories\Contracts\SupportRepositoryInterface;
@@ -97,5 +98,10 @@ class SupportRepository implements SupportRepositoryInterface
         }
 
         $support->delete();
+    }
+
+    public function updateStatus(string $id, SupportStatusEnum $status): void
+    {
+        $this->model->where('id', $id)->update(['status' => $status->name]);
     }
 }

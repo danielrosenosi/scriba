@@ -4,6 +4,7 @@ namespace App\Repositories\Contracts;
 
 use App\DTO\Supports\StoreSupportDTO;
 use App\DTO\Supports\UpdateSupportDTO;
+use App\Enums\SupportStatusEnum;
 use stdClass;
 
 interface SupportRepositoryInterface
@@ -17,6 +18,8 @@ interface SupportRepositoryInterface
     public function store(StoreSupportDTO $dto): stdClass;
 
     public function update(UpdateSupportDTO $dto): ?stdClass;
+
+    public function updateStatus(string $id, SupportStatusEnum $status): void;
 
     public function delete(string $id): void;
 }
