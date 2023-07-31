@@ -1,0 +1,32 @@
+<?php
+
+namespace App\Http\Controllers\Api;
+
+use App\Http\Controllers\Controller;
+use App\Http\Resources\ReplySupportResource;
+use App\Services\ReplySupportService;
+use App\Services\SupportService;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
+use Illuminate\Http\Resources\Json\ResourceCollection;
+use Illuminate\Http\Response;
+
+class ReplySupportApiController extends Controller
+{
+    public function __construct(
+        protected SupportService $supportService,
+        protected ReplySupportService $replyService
+    ) {
+    }
+
+    public function showBySupportId(string $id): ResourceCollection|JsonResponse
+    {
+        if (! $this->supportService->show($id)) {
+            return response()->json(['message' => 'Support not found'], Response::HTTP_NOT_FOUND);
+        }
+
+        $replies = $this->replyService->getAllBySupport($id);
+
+        return ReplySupportResource::collection($replies);
+    }
+}
