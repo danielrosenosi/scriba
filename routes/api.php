@@ -14,5 +14,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
 
     Route::apiResource('/supports', SupportApiController::class);
 
-    Route::get('/supports/{id}/replies', [ReplySupportApiController::class, 'showBySupportId'])->name('supports.replies');
+    Route::get('/supports/{id}/replies', [ReplySupportApiController::class, 'showBySupportId'])->name('supports.replies.show-by-supportId');
+    Route::post('/supports/{id}/replies', [ReplySupportApiController::class, 'store'])->name('supports.replies.store');
+    Route::delete('/replies/{replyId}', [ReplySupportApiController::class, 'destroy'])->name('replies.destroy');
 });

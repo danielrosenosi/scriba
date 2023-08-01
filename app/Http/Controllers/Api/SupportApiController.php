@@ -37,11 +37,11 @@ class SupportApiController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreSupportRequest $request): SupportResource
+    public function store(StoreSupportRequest $request): JsonResponse
     {
         $support = $this->service->store(StoreSupportDTO::makeFromRequest($request));
 
-        return new SupportResource($support);
+        return (new SupportResource($support))->response()->setStatusCode(Response::HTTP_CREATED);
     }
 
     /**
